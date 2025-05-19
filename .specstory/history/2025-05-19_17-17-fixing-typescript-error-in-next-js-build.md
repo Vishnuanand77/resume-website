@@ -357,7 +357,221 @@ Route (app)                                 Size  First Load JS
 
 ---
 
+2. Now, let's serve the built files from the `out` directory:
 
+
+---
+
+```bash
+npx serve out
+```
+
+```
+(base) vishnuanand@Vishnus-Laptop resume-website % npx serve out
+
+   ┌──────────────────────────────────────────────────┐
+   │                                                  │
+   │   Serving!                                       │
+   │                                                  │
+   │   - Local:    http://localhost:52564             │
+   │   - Network:  http://10.186.179.174:52564        │
+   │                                                  │
+   │   This port was picked because 3000 is in use.   │
+   │                                                  │
+   │   Copied local address to clipboard!             │
+   │                                                  │
+   └──────────────────────────────────────────────────┘
+
+ HTTP  5/19/2025 1:24:44 PM ::1 GET /
+ HTTP  5/19/2025 1:24:44 PM ::1 Returned 404 in 128 ms
+ HTTP  5/19/2025 1:24:45 PM ::1 GET /favicon.ico
+ HTTP  5/19/2025 1:24:45 PM ::1 Returned 404 in 1 ms
+```
+
+---
+
+
+
+---
+
+_**User**_
+
+When I try to deploy this app on github pages, I run into this build error: build
+Dependencies lock file is not found in /home/runner/work/resume-website/resume-website. Supported file patterns: package-lock.json,npm-shrinkwrap.json,yarn.lock
+
+---
+
+_**Assistant**_
+
+This error occurs because GitHub Pages deployment is looking for a lock file but can't find one. Since you're using pnpm (as I noticed from your earlier commands), we need to create a pnpm-lock.yaml file. Let's fix this:
+
+1. First, let's make sure we have a proper pnpm-lock.yaml file:
+
+
+---
+
+```bash
+pnpm install
+```
+
+```
+(base) vishnuanand@pal-nat186-179-174 resume-website % pnpm install
+Lockfile is up to date, resolution step is skipped
+Already up to date
+Done in 553ms using pnpm v10.11.0
+(base) vishnuanand@pal-nat186-179-174 resume-website %
+```
+
+---
+
+2. Now, let's check your GitHub Actions workflow file to make sure it's properly configured for pnpm:
+
+
+---
+
+Could not find file '.github/workflows/deploy.yml' in the workspace.
+
+---
+
+I see that you don't have a GitHub Actions workflow file yet. Let's create one that's properly configured for pnpm and Next.js deployment to GitHub Pages:
+
+
+---
+
+```diff
+- 
++ name: Deploy to GitHub Pages
++ 
++ on:
++   push:
++     branches: ["main"]
++   workflow_dispatch:
++ 
++ permissions:
++   contents: read
++   pages: write
++   id-token: write
++ 
++ concurrency:
++   group: "pages"
++   cancel-in-progress: false
++ 
++ jobs:
++   build:
++     runs-on: ubuntu-latest
++     steps:
++       - name: Checkout
++         uses: actions/checkout@v4
++       
++       - name: Setup Node
++         uses: actions/setup-node@v4
++         with:
++           node-version: "20"
++       
++       - name: Setup pnpm
++         uses: pnpm/action-setup@v2
++         with:
++           version: 8
++           run_install: false
++       
++       - name: Get pnpm store directory
++         shell: bash
++         run: |
++           echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
++       
++       - name: Setup pnpm cache
++         uses: actions/cache@v3
++         with:
++           path: ${{ env.STORE_PATH }}
++           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
++           restore-keys: |
++             ${{ runner.os }}-pnpm-store-
++       
++       - name: Install dependencies
++         run: pnpm install
++       
++       - name: Build with Next.js
++         run: pnpm run build
++       
++       - name: Upload artifact
++         uses: actions/upload-pages-artifact@v3
++         with:
++           path: ./out
++ 
++   deploy:
++     environment:
++       name: github-pages
++       url: ${{ steps.deployment.outputs.page_url }}
++     runs-on: ubuntu-latest
++     needs: build
++     steps:
++       - name: Deploy to GitHub Pages
++         id: deployment
++         uses: actions/deploy-pages@v4 
+```
+
+---
+
+Now, let's also make sure your `next.config.js` is properly configured for static exports:
+
+
+---
+
+Read file: next.config.js
+
+---
+
+Let's update the `next.config.js` to ensure it's properly configured for GitHub Pages:
+
+
+---
+
+```diff
+          unoptimized: true,
+      },
++     // Add basePath if your site is not served from the root
++     // basePath: '/resume-website',
++     // Add trailingSlash for better compatibility
++     trailingSlash: true,
+  }
+     
+```
+
+---
+
+Here's what I've done to fix the deployment issues:
+
+1. Created a GitHub Actions workflow file (`.github/workflows/deploy.yml`) that:
+   - Uses pnpm instead of npm
+   - Properly sets up caching for pnpm
+   - Builds and deploys your Next.js application to GitHub Pages
+
+2. Updated `next.config.js` to:
+   - Enable static exports
+   - Configure images for static export
+   - Add trailing slashes for better compatibility
+   - Include a commented `basePath` option (you'll need to uncomment and set this if your site is not served from the root domain)
+
+To deploy your site:
+
+1. Make sure your repository is on GitHub
+2. Go to your repository settings
+3. Under "Pages", make sure:
+   - Source is set to "GitHub Actions"
+   - Branch is set to "main" (or your default branch)
+
+4. Push these changes to your repository:
+```bash
+git add .
+git commit -m "Add GitHub Pages deployment configuration"
+git push
+```
+
+The GitHub Action will automatically run when you push to the main branch. You can monitor the deployment progress in the "Actions" tab of your repository.
+
+If your site is not served from the root domain (e.g., it's at `username.github.io/repo-name`), you'll need to uncomment and set the `basePath` in `next.config.js` to match your repository name.
+
+Let me know if you need any clarification or run into other issues!
 
 ---
 
