@@ -37,3 +37,6 @@ next-env.d.ts
 
 # Ignore git pack files
 .git/objects/pack/*.pack
+
+# Ignore specstory
+.specstory
