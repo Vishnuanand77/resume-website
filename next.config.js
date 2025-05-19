@@ -15,5 +15,5 @@ const nextConfig = {
     // Add trailingSlash for better compatibility
     trailingSlash: true,
 }
-   
+
 module.exports = nextConfig
