@@ -9,6 +9,10 @@ const nextConfig = {
     images: {
         unoptimized: true,
     },
+    // Add basePath if your site is not served from the root
+    // basePath: '/resume-website',
+    // Add trailingSlash for better compatibility
+    trailingSlash: true,
 }
    
 module.exports = nextConfig
