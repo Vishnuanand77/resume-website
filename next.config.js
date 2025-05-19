@@ -1,16 +1,17 @@
 /**
  * @type {import('next').NextConfig}
  */
+
+const isProduction = process.env.NODE_ENV === 'production';
+
 const nextConfig = {
     output: 'export',
-
-    // Optional: Change the output directory `out` -> `dist`
-    distDir: 'dist',
+    basePath: isProduction ? '/resume-website' : '',
+    // Use 'out' directory to match GitHub Actions workflow
+    distDir: 'out',
     images: {
         unoptimized: true,
     },
-    // Add basePath if your site is not served from the root
-    // basePath: '/resume-website',
     // Add trailingSlash for better compatibility
     trailingSlash: true,
 }

@@ -197,7 +197,7 @@ export default function Home() {
             }`}
           >
             <Avatar className="h-[25rem] w-[25rem] md:h-[25rem] md:w-[25rem] border-[10px] border-zinc-800 dark:border-zinc-100 overflow-hidden">
-              <AvatarImage src="/profile_picture.jpg" alt="Vishnu Anand" className="object-cover rounded-full" />
+              <AvatarImage src="./profile_picture.jpg" alt="Vishnu Anand" className="object-cover rounded-full" />
               <AvatarFallback className="bg-border text-foreground">VA</AvatarFallback>
             </Avatar>
             <div>
@@ -238,14 +238,14 @@ export default function Home() {
               <CardContent>
                 <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
                   <img
-                    src="/camera.png"
+                    src="./camera.png"
                     alt="Vishnu Anand with Camera"
                     className="w-40 h-40 md:w-64 md:h-64 rounded-lg object-cover shrink-0"
                   />
                   <p className="text-lg text-black dark:text-white">
-                    I’m a data enthusiast, AI engineer, and someone who genuinely enjoys turning messy datasets into meaningful solutions. With a background in Business Analytics and Computer Science, I specialize in building full-stack systems, designing machine learning workflows, and asking, “Can we automate that?”
+                    I'm a data enthusiast, AI engineer, and someone who genuinely enjoys turning messy datasets into meaningful solutions. With a background in Business Analytics and Computer Science, I specialize in building full-stack systems, designing machine learning workflows, and asking, "Can we automate that?"
                     <br /><br />
-                    Originally from India and currently based in the U.S., I’ve worked on everything from LLM-powered agents to high-volume data pipelines, combining technical rigor with practical impact. When I'm not working with data, you'll find me cooking up experiments in the kitchen or chasing perfect frame!
+                    Originally from India and currently based in the U.S., I've worked on everything from LLM-powered agents to high-volume data pipelines, combining technical rigor with practical impact. When I'm not working with data, you'll find me cooking up experiments in the kitchen or chasing perfect frame!
                   </p>
                 </div>
               </CardContent>

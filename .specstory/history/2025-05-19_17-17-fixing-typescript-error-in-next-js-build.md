@@ -2732,8 +2732,184 @@ rm -rf node_modules package-lock.json && npm install
 
 ```
 (base) vishnuanand@pal-nat186-179-174 resume-website % rm -rf node_modules package-lock.json && npm install
-⠼
+
+added 326 packages, and audited 327 packages in 23s
+
+45 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+(base) vishnuanand@pal-nat186-179-174 resume-website %
 ```
+
+---
+
+Now let's commit these changes:
+
+
+---
+
+```bash
+git add . && git commit -m "Remove unused dependencies and components" && git push
+```
+
+```
+(base) vishnuanand@pal-nat186-179-174 resume-website % git add . && git commit -m "Remove unused dependencie
+s and components" && git push                          git add . && git commit -m "Remove unused dependencie
+s and components" && git push
+[main 88eaceb] Remove unused dependencies and components
+ 4 files changed, 2993 insertions(+), 9932 deletions(-)
+ delete mode 100644 components/ui/drawer.tsx
+Enumerating objects: 17, done.
+Counting objects: 100% (17/17), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (8/8), done.
+Writing objects: 100% (9/9), 3.55 KiB | 1.78 MiB/s, done.
+Total 9 (delta 7), reused 0 (delta 0), pack-reused 0
+remote: Resolving deltas: 100% (7/7), completed with 7 local objects.
+To https://github.com/Vishnuanand77/resume-website.git
+   c9ebd16..88eaceb  main -> main
+(base) vishnuanand@pal-nat186-179-174 resume-website %
+```
+
+---
+
+I've made the following changes:
+
+1. Removed unused dependencies:
+   - `vaul` (drawer component library)
+   - All React Native related packages (`expo`, `expo-asset`, `expo-file-system`, `expo-gl`, `react-native`)
+2. Removed the unused drawer component
+3. Generated a new `package-lock.json` with the cleaned-up dependencies
+
+The workflow should now work without any dependency conflicts since we've removed the problematic dependencies that weren't being used anyway. Try pushing to your repository again. The GitHub Actions workflow should now work without any errors. Let me know if you need any further assistance!
+
+---
+
+_**User**_
+
+When deployed on github, images are not being picked up from the public folder
+
+---
+
+_**Assistant**_
+
+Let me check how the images are being referenced in the project:
+
+
+---
+
+<details>
+            <summary>Grep search for "src=.*public|src=.*/images" • **0** files</summary>
+        
+No results found
+</details>
+
+---
+
+Let me try a different search pattern:
+
+
+---
+
+<details>
+            <summary>Grep search for "Image.*src=|img.*src=" • **1** files</summary>
+        
+| File | Line | Match |
+|------|------|-------|
+| `file:///Users/vishnuanand/Documents/Purdue%20Files/Resume%20Website/resume-website-v7/resume-website/app/page.tsx` | L199 | `<AvatarImage src="/profile_picture.jpg" alt="Vishnu Anand" className="object-cover rounded-full" />` |
+
+</details>
+
+---
+
+Let me check the Next.js configuration to ensure it's properly set up for static exports:
+
+
+---
+
+Read file: next.config.js
+
+---
+
+I see the issue. For GitHub Pages deployment, we need to make a few adjustments:
+
+1. The `basePath` is correctly set to `/resume-website` in production
+2. We need to ensure the `distDir` is set to `out` to match our GitHub Actions workflow
+3. We need to make sure all image paths are relative to the base path
+
+Let's update the Next.js configuration:
+
+
+---
+
+```diff
+      output: 'export',
+      basePath: isProduction ? '/resume-website' : '',
+-     // Optional: Change the output directory `out` -> `dist`
+-     distDir: 'dist',
++     // Use 'out' directory to match GitHub Actions workflow
++     distDir: 'out',
+      images: {
+          unoptimized: true,
+      },
+-     // Add basePath if your site is not served from the root
+-     // basePath: '/resume-website',
+      // Add trailingSlash for better compatibility
+      trailingSlash: true,
+```
+
+---
+
+Now let's check how the image is being used in the page component:
+
+
+---
+
+Read file: app/page.tsx
+
+---
+
+I see the issue. The image paths in the code are using absolute paths (e.g., `/profile_picture.jpg`), but for GitHub Pages with a base path, we need to use relative paths. Let's update the image paths:
+
+
+---
+
+```diff
+            >
+              <Avatar className="h-[25rem] w-[25rem] md:h-[25rem] md:w-[25rem] border-[10px] border-zinc-800 dark:border-zinc-100 overflow-hidden">
+-               <AvatarImage src="/profile_picture.jpg" alt="Vishnu Anand" className="object-cover rounded-full" />
++               <AvatarImage src="./profile_picture.jpg" alt="Vishnu Anand" className="object-cover rounded-full" />
+                <AvatarFallback className="bg-border text-foreground">VA</AvatarFallback>
+              </Avatar>
+```
+
+```diff
+                  <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
+                    <img
+-                     src="/camera.png"
++                     src="./camera.png"
+                      alt="Vishnu Anand with Camera"
+                      className="w-40 h-40 md:w-64 md:h-64 rounded-lg object-cover shrink-0"
+                    />
+                    <p className="text-lg text-black dark:text-white">
+-                     I’m a data enthusiast, AI engineer, and someone who genuinely enjoys turning messy datasets into meaningful solutions. With a background in Business Analytics and Computer Science, I specialize in building full-stack systems, designing machine learning workflows, and asking, “Can we automate that?”
++                     I'm a data enthusiast, AI engineer, and someone who genuinely enjoys turning messy datasets into meaningful solutions. With a background in Business Analytics and Computer Science, I specialize in building full-stack systems, designing machine learning workflows, and asking, "Can we automate that?"
+                      <br /><br />
+-                     Originally from India and currently based in the U.S., I’ve worked on everything from LLM-powered agents to high-volume data pipelines, combining technical rigor with practical impact. When I'm not working with data, you'll find me cooking up experiments in the kitchen or chasing perfect frame!
++                     Originally from India and currently based in the U.S., I've worked on everything from LLM-powered agents to high-volume data pipelines, combining technical rigor with practical impact. When I'm not working with data, you'll find me cooking up experiments in the kitchen or chasing perfect frame!
+                    </p>
+                  </div>
+```
+
+---
+
+Now let's commit these changes:
+
+
+---
+
+
 
 ---
 
