@@ -47,6 +47,7 @@ jobs:
       
       - name: Install dependencies
         run: |
+          pnpm config set store-dir ${{ env.STORE_PATH }}
           pnpm install --frozen-lockfile
       
       - name: Build with Next.js
