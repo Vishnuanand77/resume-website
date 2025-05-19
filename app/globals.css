@@ -31,12 +31,12 @@
 
 /* Light theme background */
 .background-image.light {
-  background-image: url('light-pattern.png');
+  background-image: url('/images/light-pattern.png');
 }
 
 /* Dark theme background */
 .background-image.dark {
-  background-image: url('dark-pattern.png');
+  background-image: url('/images/dark-pattern.png');
 }
 
 /* Standard top navbar styles (reverted) */
