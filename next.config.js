@@ -14,6 +14,8 @@ const nextConfig = {
     },
     // Add trailingSlash for better compatibility
     trailingSlash: true,
+    // Ensure static assets are properly handled
+    assetPrefix: isProduction ? '/resume-website' : '',
 }
    
 module.exports = nextConfig
