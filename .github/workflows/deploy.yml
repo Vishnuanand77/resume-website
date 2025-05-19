@@ -49,6 +49,7 @@ jobs:
         run: |
           pnpm config set store-dir ${{ env.STORE_PATH }}
           pnpm install --frozen-lockfile
+          pnpm config set package-manager pnpm
       
       - name: Build with Next.js
         run: pnpm run build
