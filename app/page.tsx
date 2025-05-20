@@ -461,8 +461,8 @@ export default function Home() {
                                     <div>
                                       <h3 className="text-lg font-bold text-foreground">{exp.title}</h3>
                                       <p className="text-foreground/50">{exp.company}</p>
-                                    </div>
-                                  </div>
+                </div>
+                  </div>
                                   <div className={`transform transition-transform duration-300 ${expandedCards[exp.id] ? 'rotate-180' : ''}`}> 
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-foreground/50">
                                       <polyline points="6 9 12 15 18 9"></polyline>
@@ -476,11 +476,11 @@ export default function Home() {
                                 </div>
                       </CardContent>
                     </Card>
-                          </div>
+                  </div>
                           <div className="md:col-span-1 flex justify-center z-10">
                             <div className="w-8 h-8 rounded-full bg-background border-2 border-black flex items-center justify-center">
                               <div className="w-2 h-2 rounded-full bg-foreground" />
-                            </div>
+                </div>
                           </div>
                           <div className="hidden md:block md:col-span-4" />
                         </>
@@ -504,16 +504,16 @@ export default function Home() {
             <div className="space-y-8">
               {/* Purdue University – Daniels School of Business (MS) */}
               <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 cursor-pointer" onClick={() => toggleEducation('purdue-ms')}>
-                <CardContent className="p-6">
+              <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
                       <img src="./purdue-logo.png" alt="Purdue University Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
-                      <div>
+                  <div>
                         <h3 className="text-lg font-bold text-foreground">Master of Science in Business Analytics and Information Management</h3>
                         <p className="text-foreground/50">Purdue University – Daniels School of Business</p>
                         <p className="text-foreground/50">West Lafayette, IN | Expected Aug 2025</p>
-                      </div>
-                    </div>
+                  </div>
+                </div>
                     <div className={`transform transition-transform duration-300 ${expandedEducation['purdue-ms'] ? 'rotate-180' : ''}`}> 
                       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-foreground/50">
                         <polyline points="6 9 12 15 18 9"></polyline>
@@ -528,8 +528,8 @@ export default function Home() {
                       <li>Relevant Coursework: Web Data Analytics, Visual Analytics, Machine Learning, Cloud Computing, Business Statistics</li>
                     </ul>
                   </div>
-                </CardContent>
-              </Card>
+              </CardContent>
+            </Card>
               {/* PES University (BTech) */}
               <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 cursor-pointer" onClick={() => toggleEducation('pes-btech')}>
               <CardContent className="p-6">
@@ -614,7 +614,7 @@ export default function Home() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white transition-none px-3 py-1 flex items-center gap-2"
+                      className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white px-3 py-1 flex items-center gap-2"
                       asChild
                     >
                       <a href="https://github.com/Vishnuanand77/pg-sales-agent" target="_blank" rel="noopener noreferrer">
@@ -751,7 +751,7 @@ export default function Home() {
                     >
                       <a href="https://github.com/Vishnuanand77/Note-ingHill" target="_blank" rel="noopener noreferrer">
                         <Github className="w-4 h-4" />
-                        GitHub
+                      GitHub
                       </a>
                     </Button>
                     <Button
@@ -941,126 +941,150 @@ export default function Home() {
             </div>
           </section>
 
-          {/* Skills Section */}
+          {/* Licenses & Certifications Section */}
           <section
-            id="skills"
+            id="certifications"
             ref={skillsAnimation.ref}
             className={`py-12 transition-all duration-1000 ease-out ${
               skillsAnimation.isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
             }`}
           >
-            <h2 className="text-5xl font-bold tracking-tighter mb-6 text-foreground">Skills</h2>
+            <h2 className="text-5xl font-bold tracking-tighter mb-6 text-foreground">Licenses & Certifications</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300">
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-bold mb-4 text-foreground">Frontend</h3>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      React
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      Next.js
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      TypeScript
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      JavaScript
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      HTML5
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      CSS3
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      Tailwind CSS
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      Redux
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      Webpack
-                    </Badge>
+              {/* Google Data Analytics Certificate */}
+              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col">
+                <CardContent className="p-6 flex flex-col gap-4">
+                  <div className="flex items-center gap-4">
+                    <img src="/google.png" alt="Google Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
+                    <div>
+                      <h3 className="text-lg font-bold text-foreground">Google Professional Data Analytics Certificate</h3>
+                      <p className="text-foreground/50">Google</p>
+                      <p className="text-foreground/50">Issued Sep 2021</p>
                   </div>
+                  </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                    className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white px-2 py-0.5 flex items-center gap-1 mt-auto"
+                      asChild
+                    >
+                    <a href="https://www.credly.com/badges/533b4c65-dd42-4f0d-b078-8555ee40b5d5?source=linked_in_profile" target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="w-3 h-3" />
+                      View Credential
+                    </a>
+                    </Button>
                 </CardContent>
               </Card>
-              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300">
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-bold mb-4 text-foreground">Backend</h3>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      Node.js
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      Express
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      GraphQL
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      REST APIs
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      MongoDB
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      PostgreSQL
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      Firebase
-                    </Badge>
+              {/* Microsoft Certified: Azure AI Fundamentals (AI-900) */}
+              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col">
+                <CardContent className="p-6 flex flex-col gap-4">
+                  <div className="flex items-center gap-4">
+                    <img src="/microsoft.png" alt="Microsoft Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
+                    <div>
+                      <h3 className="text-lg font-bold text-foreground">Microsoft Certified: Azure AI Fundamentals (AI-900)</h3>
+                      <p className="text-foreground/50">Microsoft</p>
+                      <p className="text-foreground/50">Issued Oct 2024</p>
+                    </div>
                   </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                    className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white px-2 py-0.5 flex items-center gap-1 mt-auto"
+                      asChild
+                    >
+                    <a href="https://www.credly.com/badges/4de9611c-614e-437c-a37f-1b8ddaf7e1d5/linked_in_profile" target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="w-3 h-3" />
+                      View Credential
+                    </a>
+                    </Button>
                 </CardContent>
               </Card>
-              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300">
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-bold mb-4 text-foreground">Tools & Practices</h3>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      Git
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      GitHub
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      CI/CD
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      Jest
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      Testing Library
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      Agile
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      Scrum
-                    </Badge>
+              {/* Forecasting Using Model Studio in SAS Viya */}
+              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col">
+                <CardContent className="p-6 flex flex-col gap-4">
+                  <div className="flex items-center gap-4">
+                    <img src="/sas.png" alt="SAS Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
+                    <div>
+                      <h3 className="text-lg font-bold text-foreground">Forecasting Using Model Studio in SAS Viya</h3>
+                      <p className="text-foreground/50">SAS</p>
+                      <p className="text-foreground/50">Issued Apr 2025</p>
                   </div>
+                  </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                    className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white px-2 py-0.5 flex items-center gap-1 mt-auto"
+                      asChild
+                    >
+                    <a href="https://www.credly.com/badges/dda5f79f-4a0f-4611-bf07-761d3835bb16/linked_in_profile" target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="w-3 h-3" />
+                      View Credential
+                    </a>
+                    </Button>
                 </CardContent>
               </Card>
-              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300">
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-bold mb-4 text-foreground">Soft Skills</h3>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      Team Leadership
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      Communication
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      Problem Solving
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      Time Management
-                    </Badge>
-                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
-                      Mentoring
-                    </Badge>
+              {/* Optimization Concepts for Data Science and Artificial Intelligence */}
+              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col">
+                <CardContent className="p-6 flex flex-col gap-4">
+                  <div className="flex items-center gap-4">
+                    <img src="/sas.png" alt="SAS Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
+                    <div>
+                      <h3 className="text-lg font-bold text-foreground">Optimization Concepts for Data Science and Artificial Intelligence</h3>
+                      <p className="text-foreground/50">SAS</p>
+                      <p className="text-foreground/50">Issued Apr 2025</p>
+                    </div>
                   </div>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                    className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white px-2 py-0.5 flex items-center gap-1 mt-auto"
+                      asChild
+                    >
+                    <a href="https://www.credly.com/badges/3b1136c5-c802-4475-a8c1-237df641ea35/linked_in_profile" target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="w-3 h-3" />
+                      View Credential
+                    </a>
+                    </Button>
+                </CardContent>
+              </Card>
+              {/* Tableau Desktop Specialist */}
+              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col">
+                <CardContent className="p-6 flex flex-col gap-4">
+                  <div className="flex items-center gap-4">
+                    <img src="/tableau.png" alt="Tableau Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
+                    <div>
+                      <h3 className="text-lg font-bold text-foreground">Tableau Desktop Specialist</h3>
+                      <p className="text-foreground/50">Tableau</p>
+                    </div>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white px-2 py-0.5 flex items-center gap-1 mt-auto"
+                    disabled
+                  >
+                    Exam Scheduled
+                  </Button>
+                </CardContent>
+              </Card>
+              {/* AWS Certified Cloud Practitioner (pending voucher / training complete) */}
+              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col">
+                <CardContent className="p-6 flex flex-col gap-4">
+                  <div className="flex items-center gap-4">
+                    <img src="/AWS.png" alt="AWS Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
+                    <div>
+                      <h3 className="text-lg font-bold text-foreground">AWS Certified Cloud Practitioner</h3>
+                      <p className="text-foreground/50">Amazon Web Services</p>
+                    </div>
+                  </div>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white px-2 py-0.5 flex items-center gap-1 mt-auto"
+                    disabled
+                  >
+                    Exam Scheduled
+                  </Button>
                 </CardContent>
               </Card>
             </div>
