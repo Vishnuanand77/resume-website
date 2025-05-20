@@ -17,6 +17,9 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { theme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const [expandedCards, setExpandedCards] = useState<{ [key: string]: boolean }>({})
+  const [expandedEducation, setExpandedEducation] = useState<{ [key: string]: boolean }>({})
+  const [expandedProjects, setExpandedProjects] = useState<{ [key: string]: boolean }>({})
 
   const heroAnimation = useScrollAnimation({ threshold: 0.1 })
   const aboutAnimation = useScrollAnimation({ threshold: 0.1 })
@@ -55,6 +58,27 @@ export default function Home() {
   const handleMobileNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     scrollToSection(e, id)
     setMobileMenuOpen(false)
+  }
+
+  const toggleCard = (cardId: string) => {
+    setExpandedCards(prev => ({
+      ...prev,
+      [cardId]: !prev[cardId]
+    }))
+  }
+
+  const toggleEducation = (cardId: string) => {
+    setExpandedEducation(prev => ({
+      ...prev,
+      [cardId]: !prev[cardId]
+    }))
+  }
+
+  const toggleProject = (cardId: string) => {
+    setExpandedProjects(prev => ({
+      ...prev,
+      [cardId]: !prev[cardId]
+    }))
   }
 
   return (
@@ -232,10 +256,9 @@ export default function Home() {
             }`}
           >
             <h1 className="text-5xl font-bold tracking-tighter mb-6 text-foreground">About Me</h1>
-            <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-white dark:border-black hover:border-border/80 transition-all duration-300">
-              <CardHeader>
-              </CardHeader>
-              <CardContent>
+            <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300">
+              
+              <CardContent className="pt-6">
                 <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
                   <img
                     src="./camera.png"
@@ -262,81 +285,209 @@ export default function Home() {
           >
             <h2 className="text-5xl font-bold tracking-tighter mb-6 text-foreground">Work Experience</h2>
             <div className="relative">
-              {/* Timeline line */}
-              <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-border" />
-              
-              <div className="space-y-12">
-                {/* First Experience */}
-                <div className="relative">
-                  {/* Timeline dot */}
-                  <div className="absolute left-0 w-8 h-8 rounded-full bg-background border-2 border-border flex items-center justify-center">
+              {/* Responsive Timeline line */}
+              <div className="hidden md:block absolute left-1/2 top-0 bottom-0 w-0.5 bg-foreground -translate-x-1/2 z-0" />
+              <div className="block md:hidden absolute left-4 top-0 bottom-0 w-0.5 bg-foreground z-0" />
+              <div className="space-y-0">
+                {/* Timeline Items */}
+                {[{
+                  id: 'care',
+                  date: 'May 2025 - Present',
+                  logo: './care-logo.png',
+                  title: 'Full Stack AI Software Engineer',
+                  company: 'Care.com',
+                  bullets: [
+                    'Collaborated with system architects to implement business logic using Java Spring Boot architecture, integrating PostgreSQL, Kafka, and Go-based adapters.',
+                    'Developed RESTful APIs with versioned CRUD operations and MCP-based tooling, enabling robust service orchestration and real-time data flows.',
+                    'Led migration of legacy system data into modular architecture, ensuring referential integrity and business continuity.'
+                  ]
+                }, {
+                  id: 'prediction-guard',
+                  date: 'Jan 2025 - Apr 2025',
+                  logo: './prediction-guard-logo.png',
+                  title: 'AI Engineer Intern',
+                  company: 'Prediction Guard',
+                  bullets: [
+                    'Built LLM-powered agents to automate lead qualification, demo scheduling, and follow-ups in B2B pipelines, resulting in 2–3× increase in engagement and 65% reduction in sales cycle time.',
+                    'Benchmarked agent performance against human-led processes, collaborating with R&D to enhance accuracy, response quality, and cost-efficiency.',
+                    'Designed scalable evaluation frameworks combining test generation, CI integration, and human-in-the-loop feedback to validate and deploy AI agents.'
+                  ]
+                }, {
+                  id: 'purdue',
+                  date: 'Jan 2025 - May 2025',
+                  logo: './purdue-logo.png',
+                  title: 'Undergraduate Teaching Assistant',
+                  company: 'Purdue University – Daniels School of Business',
+                  bullets: [
+                    'MGMT 305: Business Statistics for Prof. Xing Wang',
+                    'Graded undergraduate-level assignments and projects involving regression/statistics modeling and forecasting.',
+                    'Held office hours and supported student understanding of core analytics concepts, and visualization techniques.',
+                  ]
+                }, {
+                  id: 'cognizant',
+                  date: 'Sep 2022 - Feb 2024',
+                  logo: './cognizant-logo.png',
+                  title: 'Programmer Analyst',
+                  company: 'Cognizant Technology Solutions',
+                  bullets: [
+                    'Automated large-scale data pipelines (1TB/month) using Python, SQL, and Shell, transforming raw sales data into analytics-ready outputs.',
+                    'Reduced manual overhead by 50% through quality check automation and parameterized monitoring of incomplete/corrupt data.',
+                    'Collaborated with downstream Decision Support Systems team; addressed infrastructure delays by engineering contingency processes and improving pipeline uptime.'
+                  ]
+                }, {
+                  id: 'cognizant-intern',
+                  date: 'Jan 2022 - Sep 2022',
+                  logo: './cognizant-logo.png',
+                  title: 'Programmer Analyst Intern',
+                  company: 'Cognizant Technology Solutions',
+                  bullets: [
+                    'Gained hands-on experience in Java, Spring Boot, React, and AWS through lab exercises and project-based learning.',
+                    'Led a 5-member team to develop a hospital appointment system using full-stack technologies, streamlining scheduling and diagnosis visibility.'
+                  ]
+                }].map((exp, idx) => (
+                  <div
+                    key={exp.id}
+                    className={
+                      `relative flex flex-col items-center mb-12 ` +
+                      `md:grid md:grid-cols-9 md:gap-4 `
+                    }
+                  >
+                    {/* Mobile: vertical timeline, cards full width */}
+                    <div className="md:hidden flex items-start w-full">
+                      <div className="flex flex-col items-center mr-4">
+                        <div className="w-8 h-8 rounded-full bg-background border-2 border-black flex items-center justify-center z-10">
                     <div className="w-2 h-2 rounded-full bg-foreground" />
                   </div>
-                  
-                  <div className="ml-12">
-                    <div className="text-sm text-foreground/50 mb-2">Jan 2021 - Present</div>
-                    <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-white dark:border-black hover:border-border/80 transition-all duration-300">
+                        {/* Vertical line for mobile, except last item */}
+                        {idx !== [/* ...timeline data... */].length - 1 && (
+                          <div className="flex-1 w-0.5 bg-foreground" style={{ minHeight: 40 }} />
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <div className="text-sm text-foreground/50 mb-2">{exp.date}</div>
+                        {/* Card */}
+                        <Card 
+                          className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 cursor-pointer w-full"
+                          onClick={() => toggleCard(exp.id)}
+                        >
                       <CardContent className="p-6">
-                        <h3 className="text-lg font-bold text-foreground">Senior Software Engineer</h3>
-                        <p className="text-foreground/50 mb-4">Tech Solutions Inc.</p>
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-4">
+                                <img
+                                  src={exp.logo}
+                                  alt={exp.company + ' Logo'}
+                                  className="w-12 h-12 rounded-lg object-contain bg-white p-1"
+                                />
+                                <div>
+                                  <h3 className="text-lg font-bold text-foreground">{exp.title}</h3>
+                                  <p className="text-foreground/50">{exp.company}</p>
+                                </div>
+                              </div>
+                              <div className={`transform transition-transform duration-300 ${expandedCards[exp.id] ? 'rotate-180' : ''}`}> 
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-foreground/50">
+                                  <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                              </div>
+                            </div>
+                            <div className={`overflow-hidden transition-all duration-300 ${expandedCards[exp.id] ? 'max-h-96 mt-4' : 'max-h-0'}`}>
                         <ul className="list-disc pl-5 space-y-2">
-                          <li>Led the development of a React-based dashboard that improved user engagement by 40%</li>
-                          <li>Implemented CI/CD pipelines that reduced deployment time by 60%</li>
-                          <li>Mentored junior developers and conducted code reviews</li>
-                          <li>Collaborated with design and product teams to deliver high-quality features</li>
+                                {exp.bullets.map((b, i) => <li key={i}>{b}</li>)}
                         </ul>
+                            </div>
                       </CardContent>
                     </Card>
                   </div>
                 </div>
-
-                {/* Second Experience */}
-                <div className="relative">
-                  {/* Timeline dot */}
-                  <div className="absolute left-0 w-8 h-8 rounded-full bg-background border-2 border-border flex items-center justify-center">
+                    {/* Desktop: alternating timeline */}
+                    <div className="hidden md:contents">
+                      {idx % 2 === 1 ? (
+                        <>
+                          <div className="md:col-span-4" />
+                          <div className="md:col-span-1 flex justify-center z-10">
+                            <div className="w-8 h-8 rounded-full bg-background border-2 border-black flex items-center justify-center">
                     <div className="w-2 h-2 rounded-full bg-foreground" />
                   </div>
-                  
-                  <div className="ml-12">
-                    <div className="text-sm text-foreground/50 mb-2">Jun 2018 - Dec 2020</div>
-                    <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-white dark:border-black hover:border-border/80 transition-all duration-300">
+                          </div>
+                          <div className="md:col-span-4 flex flex-col items-start w-full">
+                            <div className="text-sm text-foreground/50 mb-2 md:text-right md:pr-8">{exp.date}</div>
+                            <Card 
+                              className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 cursor-pointer w-full md:w-auto"
+                              onClick={() => toggleCard(exp.id)}
+                            >
                       <CardContent className="p-6">
-                        <h3 className="text-lg font-bold text-foreground">Frontend Developer</h3>
-                        <p className="text-foreground/50 mb-4">Web Innovators LLC</p>
+                                <div className="flex items-center justify-between">
+                                  <div className="flex items-center gap-4">
+                                    <img
+                                      src={exp.logo}
+                                      alt={exp.company + ' Logo'}
+                                      className="w-12 h-12 rounded-lg object-contain bg-white p-1"
+                                    />
+                                    <div>
+                                      <h3 className="text-lg font-bold text-foreground">{exp.title}</h3>
+                                      <p className="text-foreground/50">{exp.company}</p>
+                                    </div>
+                                  </div>
+                                  <div className={`transform transition-transform duration-300 ${expandedCards[exp.id] ? 'rotate-180' : ''}`}> 
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-foreground/50">
+                                      <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
+                                  </div>
+                                </div>
+                                <div className={`overflow-hidden transition-all duration-300 ${expandedCards[exp.id] ? 'max-h-96 mt-4' : 'max-h-0'}`}>
                         <ul className="list-disc pl-5 space-y-2">
-                          <li>Developed responsive web applications using React and Redux</li>
-                          <li>Optimized application performance, improving load times by 35%</li>
-                          <li>Integrated RESTful APIs and implemented state management solutions</li>
-                          <li>Participated in agile development processes and sprint planning</li>
+                                    {exp.bullets.map((b, i) => <li key={i}>{b}</li>)}
                         </ul>
+                                </div>
                       </CardContent>
                     </Card>
                   </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="md:col-span-4 flex flex-col items-end w-full">
+                            <div className="text-sm text-foreground/50 mb-2 md:text-left md:pl-8">{exp.date}</div>
+                            <Card 
+                              className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 cursor-pointer w-full md:w-auto"
+                              onClick={() => toggleCard(exp.id)}
+                            >
+                              <CardContent className="p-6">
+                                <div className="flex items-center justify-between">
+                                  <div className="flex items-center gap-4">
+                                    <img
+                                      src={exp.logo}
+                                      alt={exp.company + ' Logo'}
+                                      className="w-12 h-12 rounded-lg object-contain bg-white p-1"
+                                    />
+                                    <div>
+                                      <h3 className="text-lg font-bold text-foreground">{exp.title}</h3>
+                                      <p className="text-foreground/50">{exp.company}</p>
+                                    </div>
+                                  </div>
+                                  <div className={`transform transition-transform duration-300 ${expandedCards[exp.id] ? 'rotate-180' : ''}`}> 
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-foreground/50">
+                                      <polyline points="6 9 12 15 18 9"></polyline>
+                                    </svg>
                 </div>
-
-                {/* Third Experience */}
-                <div className="relative">
-                  {/* Timeline dot */}
-                  <div className="absolute left-0 w-8 h-8 rounded-full bg-background border-2 border-border flex items-center justify-center">
-                    <div className="w-2 h-2 rounded-full bg-foreground" />
                   </div>
-                  
-                  <div className="ml-12">
-                    <div className="text-sm text-foreground/50 mb-2">Jan 2017 - May 2018</div>
-                    <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-white dark:border-black hover:border-border/80 transition-all duration-300">
-                      <CardContent className="p-6">
-                        <h3 className="text-lg font-bold text-foreground">Junior Developer</h3>
-                        <p className="text-foreground/50 mb-4">Digital Creations</p>
+                                <div className={`overflow-hidden transition-all duration-300 ${expandedCards[exp.id] ? 'max-h-96 mt-4' : 'max-h-0'}`}>
                         <ul className="list-disc pl-5 space-y-2">
-                          <li>Built and maintained client websites using modern web technologies</li>
-                          <li>Collaborated with senior developers on large-scale projects</li>
-                          <li>Implemented responsive designs and cross-browser compatibility</li>
-                          <li>Participated in code reviews and team meetings</li>
+                                    {exp.bullets.map((b, i) => <li key={i}>{b}</li>)}
                         </ul>
+                                </div>
                       </CardContent>
                     </Card>
+                          </div>
+                          <div className="md:col-span-1 flex justify-center z-10">
+                            <div className="w-8 h-8 rounded-full bg-background border-2 border-black flex items-center justify-center">
+                              <div className="w-2 h-2 rounded-full bg-foreground" />
+                            </div>
+                          </div>
+                          <div className="hidden md:block md:col-span-4" />
+                        </>
+                      )}
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
             </div>
           </section>
@@ -350,139 +501,60 @@ export default function Home() {
             }`}
           >
             <h2 className="text-5xl font-bold tracking-tighter mb-6 text-foreground">Education</h2>
-            <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-white dark:border-black hover:border-border/80 transition-all duration-300">
+            <div className="space-y-8">
+              {/* Purdue University – Daniels School of Business (MS) */}
+              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 cursor-pointer" onClick={() => toggleEducation('purdue-ms')}>
+                <CardContent className="p-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <img src="./purdue-logo.png" alt="Purdue University Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
+                      <div>
+                        <h3 className="text-lg font-bold text-foreground">Master of Science in Business Analytics and Information Management</h3>
+                        <p className="text-foreground/50">Purdue University – Daniels School of Business</p>
+                        <p className="text-foreground/50">West Lafayette, IN | Expected Aug 2025</p>
+                      </div>
+                    </div>
+                    <div className={`transform transition-transform duration-300 ${expandedEducation['purdue-ms'] ? 'rotate-180' : ''}`}> 
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-foreground/50">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                    </div>
+                  </div>
+                  <div className={`overflow-hidden transition-all duration-300 ${expandedEducation['purdue-ms'] ? 'max-h-96 mt-4' : 'max-h-0'}`}>
+                    <ul className="list-disc pl-5 space-y-2 mt-2">
+                      <li>Focus: AI, Data Science, Business Analytics</li>
+                      <li>Collaborated with Prediction Guard on LLM-powered AI agents</li>
+                      <li>Conducted AI research under Dr. Matthew Lanham</li>
+                      <li>Relevant Coursework: Web Data Analytics, Visual Analytics, Machine Learning, Cloud Computing, Business Statistics</li>
+                    </ul>
+                  </div>
+                </CardContent>
+              </Card>
+              {/* PES University (BTech) */}
+              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 cursor-pointer" onClick={() => toggleEducation('pes-btech')}>
               <CardContent className="p-6">
-                <div className="flex flex-col md:flex-row justify-between mb-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <img src="./pes-logo.png" alt="PES University Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
                   <div>
-                    <h3 className="text-lg font-bold text-foreground">Bachelor of Science in Computer Science</h3>
-                    <p className="text-foreground/50">University of Technology</p>
+                        <h3 className="text-lg font-bold text-foreground">Bachelor of Technology in Computer Science Engineering</h3>
+                        <p className="text-foreground/50">PES University</p>
+                        <p className="text-foreground/50">Bengaluru, India | Aug 2022</p>
+                      </div>
+                    </div>
+                    <div className={`transform transition-transform duration-300 ${expandedEducation['pes-btech'] ? 'rotate-180' : ''}`}> 
+                      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-foreground/50">
+                        <polyline points="6 9 12 15 18 9"></polyline>
+                      </svg>
+                    </div>
                   </div>
-                  <div className="text-foreground/50 mt-2 md:mt-0">2014 - 2018</div>
-                </div>
-                <p>Graduated with honors. Specialized in software engineering and web development.</p>
-              </CardContent>
-            </Card>
-          </section>
-
-          {/* Skills Section */}
-          <section
-            id="skills"
-            ref={skillsAnimation.ref}
-            className={`py-12 transition-all duration-1000 ease-out ${
-              skillsAnimation.isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
-            }`}
-          >
-            <h2 className="text-5xl font-bold tracking-tighter mb-6 text-foreground">Skills</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-white dark:border-black hover:border-border/80 transition-all duration-300">
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-bold mb-4 text-foreground">Frontend</h3>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      React
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      Next.js
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      TypeScript
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      JavaScript
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      HTML5
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      CSS3
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      Tailwind CSS
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      Redux
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      Webpack
-                    </Badge>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-white dark:border-black hover:border-border/80 transition-all duration-300">
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-bold mb-4 text-foreground">Backend</h3>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      Node.js
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      Express
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      GraphQL
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      REST APIs
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      MongoDB
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      PostgreSQL
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      Firebase
-                    </Badge>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-white dark:border-black hover:border-border/80 transition-all duration-300">
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-bold mb-4 text-foreground">Tools & Practices</h3>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      Git
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      GitHub
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      CI/CD
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      Jest
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      Testing Library
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      Agile
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      Scrum
-                    </Badge>
-                  </div>
-                </CardContent>
-              </Card>
-              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-white dark:border-black hover:border-border/80 transition-all duration-300">
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-bold mb-4 text-foreground">Soft Skills</h3>
-                  <div className="flex flex-wrap gap-2">
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      Team Leadership
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      Communication
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      Problem Solving
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      Time Management
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      Mentoring
-                    </Badge>
+                  <div className={`overflow-hidden transition-all duration-300 ${expandedEducation['pes-btech'] ? 'max-h-96 mt-4' : 'max-h-0'}`}>
+                    <ul className="list-disc pl-5 space-y-2 mt-2">
+                      <li>Minor: Machine Intelligence and Data Science</li>
+                      <li>Recipient of Academic Distinction Awards</li>
+                      <li>Co-authored research on AI-powered note-taking app</li>
+                      <li>Leadership: Club Head, Pixelloid Photography Club</li>
+                    </ul>
                   </div>
                 </CardContent>
               </Card>
@@ -498,93 +570,496 @@ export default function Home() {
             }`}
           >
             <h2 className="text-5xl font-bold tracking-tighter mb-6 text-foreground">Projects</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-white dark:border-black hover:border-border/80 transition-all duration-300">
-                <CardContent className="p-6">
-                  <h3 className="text-lg font-bold mb-2 text-foreground">E-commerce Platform</h3>
-                  <p className="text-foreground/50 mb-4">A full-stack e-commerce solution with payment integration</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      React
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      Node.js
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      MongoDB
-                    </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      Stripe
-                    </Badge>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* LLM-Powered AI Sales Agents */}
+              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col relative overflow-hidden">
+                <div className="relative w-full h-40 flex-shrink-0">
+                  <img src="/ai-agent.png" alt="Project preview" className="object-cover w-full h-full rounded-t-lg" />
+                </div>
+                <CardContent className="p-6 flex flex-col flex-grow relative z-10 w-full">
+                  <h3 className="text-lg font-bold mb-2 text-foreground">LLM-Powered AI Sales Agents</h3>
+                  <p className="text-foreground/50 mb-2">Prediction Guard</p>
+                  <div className="flex flex-wrap gap-1 mb-2">
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">Prompt Engineering</Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">LLM Fine-tuning</Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">Agentic AI</Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">Sales Process Automation</Badge>
                   </div>
-                  <div className="flex space-x-2">
+                  <div className="relative">
+                    <ul className={`list-disc pl-5 space-y-2 mb-4 ${!expandedProjects['llm-sales'] ? 'line-clamp-1' : ''}`}> 
+                      <li>Built and evaluated LLM agents to automate lead qualification, demo scheduling, and follow-ups in B2B pipelines.</li>
+                      <li>Improved engagement by 2–3× and reduced sales cycle time by 65%.</li>
+
+                    </ul>
+                    <div className={`flex justify-center mt-2 ${!expandedProjects['llm-sales'] ? 'mb-6' : 'mb-2'}`}> 
+                      <button
+                        className="flex items-center gap-2 text-black dark:text-white font-medium focus:outline-none"
+                        onClick={() => toggleProject('llm-sales')}
+                        type="button"
+                        aria-label="Expand project description"
+                      >
+                        <svg
+                          className={`w-4 h-4 transition-transform duration-300 ${expandedProjects['llm-sales'] ? 'rotate-180' : ''}`}
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          viewBox="0 0 24 24"
+                        >
+                          <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex justify-center gap-2 mt-3 mt-auto">
                     <Button
                       variant="outline"
                       size="sm"
-                      className="border-border hover:border-border/80 hover:bg-accent hover:text-accent-foreground"
+                      className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white transition-none px-3 py-1 flex items-center gap-2"
                       asChild
                     >
-                      <Link href="#" className="flex items-center">
-                        <Github className="mr-2 h-4 w-4" />
-                        Code
-                      </Link>
+                      <a href="https://github.com/Vishnuanand77/pg-sales-agent" target="_blank" rel="noopener noreferrer">
+                        <Github className="w-4 h-4" />
+                        GitHub
+                      </a>
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
-                      className="border-border hover:border-border/80 hover:bg-accent hover:text-accent-foreground"
+                      className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white px-3 py-1 flex items-center gap-2"
                       asChild
                     >
-                      <Link href="#" className="flex items-center">
-                        <ExternalLink className="mr-2 h-4 w-4" />
-                        Demo
-                      </Link>
+                      <a href="https://www.youtube.com/watch?v=IkefBKis3eY&list=LL&index=8&t=57s" target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="w-4 h-4" />
+                        YouTube
+                      </a>
                     </Button>
                   </div>
                 </CardContent>
               </Card>
 
-              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-white dark:border-black hover:border-border/80 transition-all duration-300">
+              {/* Predicting Airbnb Superhost Status */}
+              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col relative overflow-hidden">
+                <div className="relative w-full h-40 flex-shrink-0">
+                  <img src="/airbnb-superhost.png" alt="Project preview" className="object-cover w-full h-full rounded-t-lg" />
+                </div>
+                <CardContent className="p-6 flex flex-col flex-grow relative z-10 w-full">
+                  <h3 className="text-lg font-bold mb-2 text-foreground">Predicting Airbnb Superhosts</h3>
+                  <p className="text-foreground/50 mb-2">Course Project</p>
+                  <div className="flex flex-wrap gap-1 mb-2">
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">Machine Learning</Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">Model Evaluation</Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">Tableau</Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">Feature Engineering</Badge>
+                  </div>
+                  <div className="relative">
+                    <ul className={`list-disc pl-5 space-y-2 mb-4 ${!expandedProjects['airbnb-superhost'] ? 'line-clamp-1' : ''}`}> 
+                      <li>Developed ML models to predict Superhost status using listing data.</li>
+                      <li>Conducted Difference-in-Differences (DiD) analysis to evaluate program effectiveness.</li>
+                      <li>Visualized trends and insights using Tableau.</li>
+                    </ul>
+                    <div className={`flex justify-center mt-2 ${!expandedProjects['airbnb-superhost'] ? 'mb-6' : 'mb-2'}`}> 
+                      <button
+                        className="flex items-center gap-2 text-black dark:text-white font-medium focus:outline-none"
+                        onClick={() => toggleProject('airbnb-superhost')}
+                        type="button"
+                        aria-label="Expand project description"
+                      >
+                        <svg
+                          className={`w-4 h-4 transition-transform duration-300 ${expandedProjects['airbnb-superhost'] ? 'rotate-180' : ''}`}
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          viewBox="0 0 24 24"
+                        >
+                          <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex justify-center gap-2 mt-3 mt-auto">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white px-3 py-1 flex items-center gap-2"
+                      asChild
+                    >
+                      <a href="https://github.com/Vishnuanand77/airbnb-superhost-prediction" target="_blank" rel="noopener noreferrer">
+                        <Github className="w-4 h-4" />
+                        GitHub
+                      </a>
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white px-3 py-1 flex items-center gap-2"
+                      asChild
+                    >
+                      <a href="https://youtu.be/gTesgizhTmY" target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="w-4 h-4" />
+                        YouTube
+                      </a>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Note-ing Hill: Smart Note-Taking App */}
+              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col relative overflow-hidden">
+                <div className="relative w-full h-40 flex-shrink-0">
+                  <img src="/notinghill.png" alt="Project preview" className="object-cover w-full h-full rounded-t-lg" />
+                </div>
+                <CardContent className="p-6 flex flex-col flex-grow relative z-10 w-full">
+                  <h3 className="text-lg font-bold mb-2 text-foreground">Note-ing Hill: Smart Note-Taking App</h3>
+                  <p className="text-foreground/50 mb-2">Academic Research Project</p>
+                  <div className="flex flex-wrap gap-1 mb-2">
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">OCR</Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">Text Summarization</Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">Android SDK</Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">NLP</Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">Java</Badge>
+                  </div>
+                  <div className="relative">
+                    <ul className={`list-disc pl-5 space-y-2 mb-4 ${!expandedProjects['noting-hill'] ? 'line-clamp-1' : ''}`}> 
+                      <li>Created an Android app using OCR, speech recognition, and text summarization to aid note-taking.</li>
+                      <li>Co-authored a research paper on the application's AI-driven learning benefits.</li>
+                    </ul>
+                    <div className={`flex justify-center mt-2 ${!expandedProjects['noting-hill'] ? 'mb-6' : 'mb-2'}`}> 
+                      <button
+                        className="flex items-center gap-2 text-black dark:text-white font-medium focus:outline-none"
+                        onClick={() => toggleProject('noting-hill')}
+                        type="button"
+                        aria-label="Expand project description"
+                      >
+                        <svg
+                          className={`w-4 h-4 transition-transform duration-300 ${expandedProjects['noting-hill'] ? 'rotate-180' : ''}`}
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          viewBox="0 0 24 24"
+                        >
+                          <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex justify-center gap-2 mt-3 mt-auto">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white transition-none px-3 py-1 flex items-center gap-2"
+                      asChild
+                    >
+                      <a href="https://github.com/Vishnuanand77/Note-ingHill" target="_blank" rel="noopener noreferrer">
+                        <Github className="w-4 h-4" />
+                        GitHub
+                      </a>
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white px-3 py-1 flex items-center gap-2"
+                      asChild
+                    >
+                      <a href="https://ieeexplore.ieee.org/document/9793320" target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="w-4 h-4" />
+                        Academic Paper
+                      </a>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* SWE-Bench Lite: LLM Issue Resolution with and without Documentation */}
+              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col relative overflow-hidden">
+                <div className="relative w-full h-40 flex-shrink-0">
+                  <img src="/swe.png" alt="Project preview" className="object-cover w-full h-full rounded-t-lg" />
+                </div>
+                <CardContent className="p-6 flex flex-col flex-grow relative z-10 w-full">
+                  <h3 className="text-lg font-bold mb-2 text-foreground">SWE-Bench Lite: Does Documentation help?</h3>
+                  <p className="text-foreground/50 mb-2">Independent Experiment | SWE-Bench Dataset + Cursor</p>
+                  <div className="flex flex-wrap gap-1 mb-2">
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">GitHub Issue Automation</Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">Cursor</Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">Software QA</Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">Experimental Design</Badge>
+                  </div>
+                  <div className="relative">
+                    <ul className={`list-disc pl-5 space-y-2 mb-4 ${!expandedProjects['swe-bench'] ? 'line-clamp-1' : ''}`}> 
+                      <li>Evaluated LLM performance (OpenAI, Claude) on resolving GitHub issues using the SWE-Bench Lite dataset.</li>
+                      <li>Tested whether providing documentation context improved model accuracy in identifying and patching code issues.</li>
+                      <li>Observed slight performance gains with documentation, validating the role of context in LLM-assisted software engineering.</li>
+                    </ul>
+                    <div className={`flex justify-center mt-2 ${!expandedProjects['swe-bench'] ? 'mb-6' : 'mb-2'}`}> 
+                      <button
+                        className="flex items-center gap-2 text-black dark:text-white font-medium focus:outline-none"
+                        onClick={() => toggleProject('swe-bench')}
+                        type="button"
+                        aria-label="Expand project description"
+                      >
+                        <svg
+                          className={`w-4 h-4 transition-transform duration-300 ${expandedProjects['swe-bench'] ? 'rotate-180' : ''}`}
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          viewBox="0 0 24 24"
+                        >
+                          <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex justify-center gap-2 mt-3 mt-auto">
+                    <Button variant="outline" size="sm" className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white px-3 py-1 flex items-center gap-2" asChild>
+                      <a href="#" target="_blank" rel="noopener noreferrer">
+                        <Github className="w-4 h-4" />
+                        GitHub
+                      </a>
+                    </Button>
+                    <Button variant="outline" size="sm" className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white px-3 py-1 flex items-center gap-2" asChild>
+                      <a href="#" target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="w-4 h-4" />
+                        YouTube
+                      </a>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* March Madness Prediction – CCAC Kaggle Case Competition */}
+              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col relative overflow-hidden">
+                <div className="relative w-full h-40 flex-shrink-0">
+                  <img src="/ccac.png" alt="Project preview" className="object-cover w-full h-full rounded-t-lg" />
+                </div>
+                <CardContent className="p-6 flex flex-col flex-grow relative z-10 w-full">
+                  <h3 className="text-lg font-bold mb-2 text-foreground">March Madness Picks Prediction</h3>
+                  <p className="text-foreground/50 mb-2">Kaggle Competition – Crossroads Classic Analytics Challenge</p>
+                  <div className="flex flex-wrap gap-1 mb-2">
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">Machine Learning</Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">Neural Networks</Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">Feature Engineering</Badge>
+
+                  </div>
+                  <div className="relative">
+                    <ul className={`list-disc pl-5 space-y-2 mb-4 ${!expandedProjects['march-madness'] ? 'line-clamp-1' : ''}`}> 
+                      <li>Built predictive models to forecast user picks in March Madness tournaments using historical data from inception to 2024.</li>
+                      <li>Engineered domain-specific features and applied ensemble methods including CatBoost, GBDT, Random Forest, and Neural Networks.</li>
+                      <li>Achieved 66% accuracy, outperforming baseline models in predicting bracket outcomes.</li>
+                    </ul>
+                    <div className={`flex justify-center mt-2 ${!expandedProjects['march-madness'] ? 'mb-6' : 'mb-2'}`}> 
+                      <button
+                        className="flex items-center gap-2 text-black dark:text-white font-medium focus:outline-none"
+                        onClick={() => toggleProject('march-madness')}
+                        type="button"
+                        aria-label="Expand project description"
+                      >
+                        <svg
+                          className={`w-4 h-4 transition-transform duration-300 ${expandedProjects['march-madness'] ? 'rotate-180' : ''}`}
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          viewBox="0 0 24 24"
+                        >
+                          <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex justify-center gap-2 mt-3 mt-auto">
+                    <Button variant="outline" size="sm" className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white px-3 py-1 flex items-center gap-2" asChild>
+                      <a href="https://github.com/Vishnuanand77/Crossroads-Classic-Analytics-Challenge-Learning-Machine" target="_blank" rel="noopener noreferrer">
+                        <Github className="w-4 h-4" />
+                        GitHub
+                      </a>
+                    </Button>
+                    {/* <Button variant="outline" size="sm" className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white px-3 py-1 flex items-center gap-2" asChild>
+                      <a href="#" target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="w-4 h-4" />
+                        YouTube
+                      </a>
+                    </Button> */}
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Burlington Ecommerce Strategy */}
+              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col relative overflow-hidden">
+                <div className="relative w-full h-40 flex-shrink-0">
+                  <img src="/burlington.png" alt="Project preview" className="object-cover w-full h-full rounded-t-lg" />
+                </div>
+                <CardContent className="p-6 flex flex-col flex-grow relative z-10 w-full">
+                  <h3 className="text-lg font-bold mb-2 text-foreground">Burlington Ecommerce Strategy</h3>
+                  <p className="text-foreground/50 mb-2">Technology-Driven Business – Course Project</p>
+                  <div className="flex flex-wrap gap-1 mb-2">
+
+
+
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">Market Research</Badge>
+
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">Data Visualization</Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">Business Strategy</Badge>
+                  </div>
+                  <div className="relative">
+                    <ul className={`list-disc pl-5 space-y-2 mb-4 ${!expandedProjects['burlington'] ? 'line-clamp-1' : ''}`}> 
+                      <li>Analyzed Burlington's online sales and web activity to recommend revitalization strategies.</li>
+                      <li>Created dashboards and summarized key consumer behavior insights.</li>
+                    </ul>
+                    <div className={`flex justify-center mt-2 ${!expandedProjects['burlington'] ? 'mb-6' : 'mb-2'}`}> 
+                      <button
+                        className="flex items-center gap-2 text-black dark:text-white font-medium focus:outline-none"
+                        onClick={() => toggleProject('burlington')}
+                        type="button"
+                        aria-label="Expand project description"
+                      >
+                        <svg
+                          className={`w-4 h-4 transition-transform duration-300 ${expandedProjects['burlington'] ? 'rotate-180' : ''}`}
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          viewBox="0 0 24 24"
+                        >
+                          <polyline points="6 9 12 15 18 9" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex justify-center gap-2 mt-3 mt-auto">
+                    {/* <Button variant="outline" size="sm" className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white px-3 py-1 flex items-center gap-2" asChild>
+                      <a href="#" target="_blank" rel="noopener noreferrer">
+                        <Github className="w-4 h-4" />
+                        GitHub
+                      </a>
+                    </Button> */}
+                    <Button variant="outline" size="sm" className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white px-3 py-1 flex items-center gap-2" asChild>
+                      <a href="https://youtu.be/EBHeeg3ahRI" target="_blank" rel="noopener noreferrer">
+                        <ExternalLink className="w-4 h-4" />
+                        YouTube
+                      </a>
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+          </section>
+
+          {/* Skills Section */}
+          <section
+            id="skills"
+            ref={skillsAnimation.ref}
+            className={`py-12 transition-all duration-1000 ease-out ${
+              skillsAnimation.isVisible ? "opacity-100 scale-100" : "opacity-0 scale-95"
+            }`}
+          >
+            <h2 className="text-5xl font-bold tracking-tighter mb-6 text-foreground">Skills</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300">
                 <CardContent className="p-6">
-                  <h3 className="text-lg font-bold mb-2 text-foreground">Task Management App</h3>
-                  <p className="text-foreground/50 mb-4">A collaborative task management application with real-time updates</p>
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
+                  <h3 className="text-lg font-bold mb-4 text-foreground">Frontend</h3>
+                  <div className="flex flex-wrap gap-2">
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      React
+                    </Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
                       Next.js
                     </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
                       TypeScript
                     </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      Prisma
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      JavaScript
                     </Badge>
-                    <Badge className="bg-background border border-border text-foreground" variant="outline">
-                      PostgreSQL
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      HTML5
+                    </Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      CSS3
+                    </Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      Tailwind CSS
+                    </Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      Redux
+                    </Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      Webpack
                     </Badge>
                   </div>
-                  <div className="flex space-x-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="border-border hover:border-border/80 hover:bg-accent hover:text-accent-foreground"
-                      asChild
-                    >
-                      <Link href="#" className="flex items-center">
-                        <Github className="mr-2 h-4 w-4" />
-                        Code
-                      </Link>
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      className="border-border hover:border-border/80 hover:bg-accent hover:text-accent-foreground"
-                      asChild
-                    >
-                      <Link href="#" className="flex items-center">
-                        <ExternalLink className="mr-2 h-4 w-4" />
-                        Demo
-                      </Link>
-                    </Button>
+                </CardContent>
+              </Card>
+              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300">
+                <CardContent className="p-6">
+                  <h3 className="text-lg font-bold mb-4 text-foreground">Backend</h3>
+                  <div className="flex flex-wrap gap-2">
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      Node.js
+                    </Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      Express
+                    </Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      GraphQL
+                    </Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      REST APIs
+                    </Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      MongoDB
+                    </Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      PostgreSQL
+                    </Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      Firebase
+                    </Badge>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300">
+                <CardContent className="p-6">
+                  <h3 className="text-lg font-bold mb-4 text-foreground">Tools & Practices</h3>
+                  <div className="flex flex-wrap gap-2">
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      Git
+                    </Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      GitHub
+                    </Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      CI/CD
+                    </Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      Jest
+                    </Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      Testing Library
+                    </Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      Agile
+                    </Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      Scrum
+                    </Badge>
+                  </div>
+                </CardContent>
+              </Card>
+              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300">
+                <CardContent className="p-6">
+                  <h3 className="text-lg font-bold mb-4 text-foreground">Soft Skills</h3>
+                  <div className="flex flex-wrap gap-2">
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      Team Leadership
+                    </Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      Communication
+                    </Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      Problem Solving
+                    </Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      Time Management
+                    </Badge>
+                    <Badge className="bg-transparent border border-black text-black dark:border-white dark:text-white px-1.5 py-0 text-[10px] font-normal" variant="outline">
+                      Mentoring
+                    </Badge>
                   </div>
                 </CardContent>
               </Card>
@@ -600,7 +1075,7 @@ export default function Home() {
             }`}
           >
             <h2 className="text-5xl font-bold tracking-tighter mb-6 text-foreground">Contact</h2>
-            <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-white dark:border-black hover:border-border/80 transition-all duration-300">
+            <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300">
               <CardContent className="p-6">
                 <form className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

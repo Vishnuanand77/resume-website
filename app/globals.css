@@ -31,12 +31,12 @@
 
 /* Light theme background */
 .background-image.light {
-  background-image: url('./light-pattern.png');
+  background-image: url('/light-pattern.png');
 }
 
 /* Dark theme background */
 .background-image.dark {
-  background-image: url('./dark-pattern.png');
+  background-image: url('/dark-pattern.png');
 }
 
 /* Standard top navbar styles (reverted) */
@@ -259,10 +259,10 @@ main {
 
 /* Add smooth transitions for theme switching */
 * {
-  transition: background-color 0.8s ease-in-out,
-              border-color 0.8s ease-in-out,
-              color 0.8s ease-in-out,
-              opacity 0.8s ease-in-out;
+  transition: background-color 0.2s ease-in-out,
+              border-color 0.2s ease-in-out,
+              color 0.2s ease-in-out,
+              opacity 0.2s ease-in-out;
 }
 
 /* Ensure transitions don't affect performance */
