@@ -135,15 +135,25 @@ export default function Home() {
                 >
                   Projects
                 </Link>
+                <Link
+                  href="#certifications"
+                  className="text-foreground/60 hover:text-foreground transition-colors"
+                  onClick={(e) => scrollToSection(e, "certifications")}
+                >
+                  Certifications
+                </Link>
               </nav>
               {/* Right-justified Action Items */}
               <div className="flex-1 flex justify-end items-center space-x-2">
                 <Button
                   size="sm"
                   className="hidden md:flex ml-4 bg-black text-white dark:bg-white dark:text-black hover:bg-white hover:text-black hover:border-black dark:hover:bg-zinc-900 dark:hover:text-white border border-transparent"
+                  asChild
                 >
-                  <Download className="mr-2 h-4 w-4 transition-none" />
-                  Download CV
+                  <a href="/Resume-AI%20Engineering.pdf" download>
+                    <Download className="mr-2 h-4 w-4 transition-none" />
+                    Download CV
+                  </a>
                 </Button>
                 <ThemeToggle />
                 {/* Mobile Menu Button */}
@@ -200,6 +210,13 @@ export default function Home() {
               >
                 Projects
               </Link>
+              <Link
+                href="#certifications"
+                className="w-full py-3 text-center transition-colors hover:text-foreground/80"
+                onClick={(e) => handleMobileNavClick(e, "certifications")}
+              >
+                Certifications
+              </Link>
               <div className="flex space-x-2 pt-4">
                 <Button variant="outline" className="border-border hover:bg-accent hover:text-accent-foreground">
                   <Download className="mr-2 h-4 w-4" />
@@ -242,6 +259,14 @@ export default function Home() {
                 <Button variant="outline" className="hover:bg-accent hover:text-accent-foreground bg-black text-white dark:bg-white dark:text-black hover:bg-zinc-800 dark:hover:bg-zinc-100 border border-transparent">
                   <Linkedin className="h-32 w-32" />
                   <span className="sr-only">LinkedIn</span>
+                </Button>
+              </Link>
+              <Link href="https://www.instagram.com/visnu.jpg/" target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" className="hover:bg-accent hover:text-accent-foreground bg-black text-white dark:bg-white dark:text-black hover:bg-zinc-800 dark:hover:bg-zinc-100 border border-transparent">
+                  <svg className="h-32 w-32" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                  <span className="sr-only">Instagram</span>
                 </Button>
               </Link>
             </div>
@@ -317,7 +342,7 @@ export default function Home() {
                   date: 'Jan 2025 - May 2025',
                   logo: './purdue-logo.png',
                   title: 'Undergraduate Teaching Assistant',
-                  company: 'Purdue University – Daniels School of Business',
+                  company: 'Purdue University',
                   bullets: [
                     'MGMT 305: Business Statistics for Prof. Xing Wang',
                     'Graded undergraduate-level assignments and projects involving regression/statistics modeling and forecasting.',
@@ -348,8 +373,8 @@ export default function Home() {
                   <div
                     key={exp.id}
                     className={
-                      `relative flex flex-col items-center mb-12 ` +
-                      `md:grid md:grid-cols-9 md:gap-4 `
+                      `relative flex flex-col items-center mb-6 md:mb-6 ` +
+                      `md:grid md:grid-cols-9 md:gap-4`
                     }
                   >
                     {/* Mobile: vertical timeline, cards full width */}
@@ -359,15 +384,15 @@ export default function Home() {
                     <div className="w-2 h-2 rounded-full bg-foreground" />
                   </div>
                         {/* Vertical line for mobile, except last item */}
-                        {idx !== [/* ...timeline data... */].length - 1 && (
-                          <div className="flex-1 w-0.5 bg-foreground" style={{ minHeight: 40 }} />
+                        {idx !== 4 && (
+                          <div className="hidden md:block flex-1 w-0.5 bg-foreground" style={{ minHeight: 40 }} />
                         )}
                       </div>
                       <div className="flex-1">
                         <div className="text-sm text-foreground/50 mb-2">{exp.date}</div>
                         {/* Card */}
                         <Card 
-                          className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 cursor-pointer w-full"
+                          className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 cursor-pointer w-full mb-6 md:mb-0"
                           onClick={() => toggleCard(exp.id)}
                         >
                       <CardContent className="p-6">
@@ -746,7 +771,7 @@ export default function Home() {
                     <Button
                       variant="outline"
                       size="sm"
-                      className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white transition-none px-3 py-1 flex items-center gap-2"
+                      className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white px-3 py-1 flex items-center gap-2"
                       asChild
                     >
                       <a href="https://github.com/Vishnuanand77/Note-ingHill" target="_blank" rel="noopener noreferrer">
@@ -1055,7 +1080,7 @@ export default function Home() {
                     <div>
                       <h3 className="text-lg font-bold text-foreground">Tableau Desktop Specialist</h3>
                       <p className="text-foreground/50">Tableau</p>
-                    </div>
+                  </div>
                   </div>
                   <Button
                     variant="outline"
@@ -1099,52 +1124,106 @@ export default function Home() {
             }`}
           >
             <h2 className="text-5xl font-bold tracking-tighter mb-6 text-foreground">Contact</h2>
-            <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300">
-              <CardContent className="p-6">
-                <form className="space-y-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <label htmlFor="name" className="text-sm font-medium text-foreground">
-                        Name
-                      </label>
-                      <input
-                        id="name"
-                        type="text"
-                        className="w-full px-3 py-2 bg-background border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                        placeholder="Your name"
-                      />
-                    </div>
-                    <div className="space-y-2">
-                      <label htmlFor="email" className="text-sm font-medium text-foreground">
-                        Email
-                      </label>
-                      <input
-                        id="email"
-                        type="email"
-                        className="w-full px-3 py-2 bg-background border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                        placeholder="Your email"
-                      />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label htmlFor="message" className="text-sm font-medium text-foreground">
-                      Message
-                    </label>
-                    <textarea
-                      id="message"
-                      rows={4}
-                      className="w-full px-3 py-2 bg-background border border-border rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-                      placeholder="Your message"
-                    />
-                  </div>
-                  <Button type="submit" className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
-                    Send Message
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {/* LinkedIn Card */}
+              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300">
+                <CardContent className="p-6 flex flex-col items-center text-center gap-4">
+                  <Linkedin className="w-12 h-12 text-foreground" />
+                  <h3 className="text-lg font-bold text-foreground">LinkedIn</h3>
+                  <p className="text-foreground/50">Connect with me on LinkedIn</p>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white px-3 py-1 flex items-center gap-2"
+                    asChild
+                  >
+                    <a href="https://www.linkedin.com/in/vishnuanand77/" target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="w-4 h-4" />
+                      Connect
+                    </a>
                   </Button>
-                </form>
               </CardContent>
             </Card>
+
+              {/* Email Card */}
+              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300">
+                <CardContent className="p-6 flex flex-col items-center text-center gap-4">
+                  <Mail className="w-12 h-12 text-foreground" />
+                  <h3 className="text-lg font-bold text-foreground">Email</h3>
+                  <p className="text-foreground/50">Get in touch via email</p>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white px-3 py-1 flex items-center gap-2"
+                    asChild
+                  >
+                    <a href="mailto:vishnuanand2000@gmail.com">
+                      <Mail className="w-4 h-4" />
+                      Send Email
+                    </a>
+                  </Button>
+                </CardContent>
+              </Card>
+
+              {/* Instagram Card */}
+              <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300">
+                <CardContent className="p-6 flex flex-col items-center text-center gap-4">
+                  <svg className="w-12 h-12 text-foreground" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                  </svg>
+                  <h3 className="text-lg font-bold text-foreground">Instagram</h3>
+                  <p className="text-foreground/50">Follow my photography journey</p>
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white px-3 py-1 flex items-center gap-2"
+                    asChild
+                  >
+                    <a href="https://www.instagram.com/visnu.jpg/" target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="w-4 h-4" />
+                      Follow
+                    </a>
+                  </Button>
+                </CardContent>
+              </Card>
+            </div>
           </section>
         </main>
+
+        {/* Footer */}
+        <footer className="relative z-10 border-t border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+              <div className="text-center md:text-left">
+                <p className="text-sm text-foreground/60">
+                  © {new Date().getFullYear()} Vishnu Anand. All rights reserved.
+                </p>
+              </div>
+              <div className="flex items-center gap-4">
+                <Link href="https://github.com/Vishnuanand77" target="_blank" rel="noopener noreferrer">
+                  <Button variant="ghost" size="icon" className="text-foreground/60 hover:text-foreground">
+                    <Github className="h-5 w-5" />
+                    <span className="sr-only">GitHub</span>
+                  </Button>
+                </Link>
+                <Link href="https://www.linkedin.com/in/vishnuanand77/" target="_blank" rel="noopener noreferrer">
+                  <Button variant="ghost" size="icon" className="text-foreground/60 hover:text-foreground">
+                    <Linkedin className="h-5 w-5" />
+                    <span className="sr-only">LinkedIn</span>
+                  </Button>
+                </Link>
+                <Link href="https://www.instagram.com/visnu.jpg/" target="_blank" rel="noopener noreferrer">
+                  <Button variant="ghost" size="icon" className="text-foreground/60 hover:text-foreground">
+                    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                    </svg>
+                    <span className="sr-only">Instagram</span>
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </footer>
       </div>
 
       {/* Add CSS for blinking cursor */}
