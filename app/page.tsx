@@ -13,6 +13,9 @@ import { useSmoothScroll } from "@/hooks/use-smooth-scroll"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { useTheme } from "next-themes"
 
+// At the top, after imports, add:
+const basePath = process.env.NODE_ENV === 'production' ? '/resume-website' : '';
+
 export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const { theme } = useTheme()
@@ -238,7 +241,7 @@ export default function Home() {
             }`}
           >
             <Avatar className="h-[25rem] w-[25rem] md:h-[25rem] md:w-[25rem] border-[10px] border-zinc-800 dark:border-zinc-100 overflow-hidden">
-              <AvatarImage src="./profile_picture.jpg" alt="Vishnu Anand" className="object-cover rounded-full" />
+              <AvatarImage src={`${basePath}/profile_picture.jpg`} alt="Vishnu Anand" className="object-cover rounded-full" />
               <AvatarFallback className="bg-border text-foreground">VA</AvatarFallback>
             </Avatar>
             <div>
@@ -286,7 +289,7 @@ export default function Home() {
               <CardContent className="pt-6">
                 <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
                   <img
-                    src="./camera.png"
+                    src={`${basePath}/camera.png`}
                     alt="Vishnu Anand with Camera"
                     className="w-40 h-40 md:w-64 md:h-64 rounded-lg object-cover shrink-0"
                   />
@@ -318,7 +321,7 @@ export default function Home() {
                 {[{
                   id: 'care',
                   date: 'May 2025 - Present',
-                  logo: './care-logo.png',
+                  logo: `${basePath}/care-logo.png`,
                   title: 'Full Stack AI Software Engineer',
                   company: 'Care.com',
                   bullets: [
@@ -329,7 +332,7 @@ export default function Home() {
                 }, {
                   id: 'prediction-guard',
                   date: 'Jan 2025 - Apr 2025',
-                  logo: './prediction-guard-logo.png',
+                  logo: `${basePath}/prediction-guard-logo.png`,
                   title: 'AI Engineer Intern',
                   company: 'Prediction Guard',
                   bullets: [
@@ -340,7 +343,7 @@ export default function Home() {
                 }, {
                   id: 'purdue',
                   date: 'Jan 2025 - May 2025',
-                  logo: './purdue-logo.png',
+                  logo: `${basePath}/purdue-logo.png`,
                   title: 'Undergraduate Teaching Assistant',
                   company: 'Purdue University',
                   bullets: [
@@ -351,7 +354,7 @@ export default function Home() {
                 }, {
                   id: 'cognizant',
                   date: 'Sep 2022 - Feb 2024',
-                  logo: './cognizant-logo.png',
+                  logo: `${basePath}/cognizant-logo.png`,
                   title: 'Programmer Analyst',
                   company: 'Cognizant Technology Solutions',
                   bullets: [
@@ -362,7 +365,7 @@ export default function Home() {
                 }, {
                   id: 'cognizant-intern',
                   date: 'Jan 2022 - Sep 2022',
-                  logo: './cognizant-logo.png',
+                  logo: `${basePath}/cognizant-logo.png`,
                   title: 'Programmer Analyst Intern',
                   company: 'Cognizant Technology Solutions',
                   bullets: [
@@ -532,7 +535,7 @@ export default function Home() {
               <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                      <img src="./purdue-logo.png" alt="Purdue University Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
+                      <img src={`${basePath}/purdue-logo.png`} alt="Purdue University Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
                   <div>
                         <h3 className="text-lg font-bold text-foreground">Master of Science in Business Analytics and Information Management</h3>
                         <p className="text-foreground/50">Purdue University – Daniels School of Business</p>
@@ -560,7 +563,7 @@ export default function Home() {
               <CardContent className="p-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                      <img src="./pes-logo.png" alt="PES University Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
+                      <img src={`${basePath}/pes-logo.png`} alt="PES University Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
                   <div>
                         <h3 className="text-lg font-bold text-foreground">Bachelor of Technology in Computer Science Engineering</h3>
                         <p className="text-foreground/50">PES University</p>
@@ -599,7 +602,7 @@ export default function Home() {
               {/* LLM-Powered AI Sales Agents */}
               <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col relative overflow-hidden">
                 <div className="relative w-full h-40 flex-shrink-0">
-                  <img src="/ai-agent.png" alt="Project preview" className="object-cover w-full h-full rounded-t-lg" />
+                  <img src={`${basePath}/ai-agent.png`} alt="Project preview" className="object-cover w-full h-full rounded-t-lg" />
                 </div>
                 <CardContent className="p-6 flex flex-col flex-grow relative z-10 w-full">
                   <h3 className="text-lg font-bold mb-2 text-foreground">LLM-Powered AI Sales Agents</h3>
@@ -665,7 +668,7 @@ export default function Home() {
               {/* Predicting Airbnb Superhost Status */}
               <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col relative overflow-hidden">
                 <div className="relative w-full h-40 flex-shrink-0">
-                  <img src="/airbnb-superhost.png" alt="Project preview" className="object-cover w-full h-full rounded-t-lg" />
+                  <img src={`${basePath}/airbnb-superhost.png`} alt="Project preview" className="object-cover w-full h-full rounded-t-lg" />
                 </div>
                 <CardContent className="p-6 flex flex-col flex-grow relative z-10 w-full">
                   <h3 className="text-lg font-bold mb-2 text-foreground">Predicting Airbnb Superhosts</h3>
@@ -731,7 +734,7 @@ export default function Home() {
               {/* Note-ing Hill: Smart Note-Taking App */}
               <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col relative overflow-hidden">
                 <div className="relative w-full h-40 flex-shrink-0">
-                  <img src="/notinghill.png" alt="Project preview" className="object-cover w-full h-full rounded-t-lg" />
+                  <img src={`${basePath}/notinghill.png`} alt="Project preview" className="object-cover w-full h-full rounded-t-lg" />
                 </div>
                 <CardContent className="p-6 flex flex-col flex-grow relative z-10 w-full">
                   <h3 className="text-lg font-bold mb-2 text-foreground">Note-ing Hill: Smart Note-Taking App</h3>
@@ -797,7 +800,7 @@ export default function Home() {
               {/* SWE-Bench Lite: LLM Issue Resolution with and without Documentation */}
               <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col relative overflow-hidden">
                 <div className="relative w-full h-40 flex-shrink-0">
-                  <img src="/swe.png" alt="Project preview" className="object-cover w-full h-full rounded-t-lg" />
+                  <img src={`${basePath}/swe.png`} alt="Project preview" className="object-cover w-full h-full rounded-t-lg" />
                 </div>
                 <CardContent className="p-6 flex flex-col flex-grow relative z-10 w-full">
                   <h3 className="text-lg font-bold mb-2 text-foreground">SWE-Bench Lite: Does Documentation help?</h3>
@@ -853,7 +856,7 @@ export default function Home() {
               {/* March Madness Prediction – CCAC Kaggle Case Competition */}
               <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col relative overflow-hidden">
                 <div className="relative w-full h-40 flex-shrink-0">
-                  <img src="/ccac.png" alt="Project preview" className="object-cover w-full h-full rounded-t-lg" />
+                  <img src={`${basePath}/ccac.png`} alt="Project preview" className="object-cover w-full h-full rounded-t-lg" />
                 </div>
                 <CardContent className="p-6 flex flex-col flex-grow relative z-10 w-full">
                   <h3 className="text-lg font-bold mb-2 text-foreground">March Madness Picks Prediction</h3>
@@ -909,7 +912,7 @@ export default function Home() {
               {/* Burlington Ecommerce Strategy */}
               <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col relative overflow-hidden">
                 <div className="relative w-full h-40 flex-shrink-0">
-                  <img src="/burlington.png" alt="Project preview" className="object-cover w-full h-full rounded-t-lg" />
+                  <img src={`${basePath}/burlington.png`} alt="Project preview" className="object-cover w-full h-full rounded-t-lg" />
                 </div>
                 <CardContent className="p-6 flex flex-col flex-grow relative z-10 w-full">
                   <h3 className="text-lg font-bold mb-2 text-foreground">Burlington Ecommerce Strategy</h3>
@@ -980,7 +983,7 @@ export default function Home() {
               <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col">
                 <CardContent className="p-6 flex flex-col gap-4">
                   <div className="flex items-center gap-4">
-                    <img src="/google.png" alt="Google Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
+                    <img src={`${basePath}/google.png`} alt="Google Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
                     <div>
                       <h3 className="text-lg font-bold text-foreground">Google Professional Data Analytics Certificate</h3>
                       <p className="text-foreground/50">Google</p>
@@ -1004,7 +1007,7 @@ export default function Home() {
               <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col">
                 <CardContent className="p-6 flex flex-col gap-4">
                   <div className="flex items-center gap-4">
-                    <img src="/microsoft.png" alt="Microsoft Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
+                    <img src={`${basePath}/microsoft.png`} alt="Microsoft Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
                     <div>
                       <h3 className="text-lg font-bold text-foreground">Microsoft Certified: Azure AI Fundamentals (AI-900)</h3>
                       <p className="text-foreground/50">Microsoft</p>
@@ -1028,7 +1031,7 @@ export default function Home() {
               <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col">
                 <CardContent className="p-6 flex flex-col gap-4">
                   <div className="flex items-center gap-4">
-                    <img src="/sas.png" alt="SAS Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
+                    <img src={`${basePath}/sas.png`} alt="SAS Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
                     <div>
                       <h3 className="text-lg font-bold text-foreground">Forecasting Using Model Studio in SAS Viya</h3>
                       <p className="text-foreground/50">SAS</p>
@@ -1052,7 +1055,7 @@ export default function Home() {
               <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col">
                 <CardContent className="p-6 flex flex-col gap-4">
                   <div className="flex items-center gap-4">
-                    <img src="/sas.png" alt="SAS Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
+                    <img src={`${basePath}/sas.png`} alt="SAS Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
                     <div>
                       <h3 className="text-lg font-bold text-foreground">Optimization Concepts for Data Science and Artificial Intelligence</h3>
                       <p className="text-foreground/50">SAS</p>
@@ -1076,7 +1079,7 @@ export default function Home() {
               <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col">
                 <CardContent className="p-6 flex flex-col gap-4">
                   <div className="flex items-center gap-4">
-                    <img src="/tableau.png" alt="Tableau Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
+                    <img src={`${basePath}/tableau.png`} alt="Tableau Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
                     <div>
                       <h3 className="text-lg font-bold text-foreground">Tableau Desktop Specialist</h3>
                       <p className="text-foreground/50">Tableau</p>
@@ -1096,7 +1099,7 @@ export default function Home() {
               <Card className="bg-card/5 backdrop-blur-md shadow-lg shadow-black/20 border border-black hover:border-black transition-all duration-300 flex flex-col">
                 <CardContent className="p-6 flex flex-col gap-4">
                   <div className="flex items-center gap-4">
-                    <img src="/AWS.png" alt="AWS Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
+                    <img src={`${basePath}/AWS.png`} alt="AWS Logo" className="w-16 h-16 rounded-lg object-contain bg-white p-1" />
                     <div>
                       <h3 className="text-lg font-bold text-foreground">AWS Certified Cloud Practitioner</h3>
                       <p className="text-foreground/50">Amazon Web Services</p>
