@@ -154,8 +154,8 @@ export default function Home() {
                   asChild
                 >
                   <a href="/Resume-AI%20Engineering.pdf" download>
-                    <Download className="mr-2 h-4 w-4 transition-none" />
-                    Download CV
+                  <Download className="mr-2 h-4 w-4 transition-none" />
+                  Download CV
                   </a>
                 </Button>
                 <ThemeToggle />
@@ -240,7 +240,7 @@ export default function Home() {
               heroAnimation.isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
             }`}
           >
-            <Avatar className="h-[25rem] w-[25rem] md:h-[25rem] md:w-[25rem] border-[10px] border-zinc-800 dark:border-zinc-100 overflow-hidden">
+            <Avatar className="h-[15rem] w-[15rem] md:h-[25rem] md:w-[25rem] border-[10px] border-zinc-800 dark:border-zinc-100 overflow-hidden">
               <AvatarImage src={`${basePath}/profile_picture.jpg`} alt="Vishnu Anand" className="object-cover rounded-full" />
               <AvatarFallback className="bg-border text-foreground">VA</AvatarFallback>
             </Avatar>
