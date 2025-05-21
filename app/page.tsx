@@ -1226,7 +1226,7 @@ export default function Home() {
               </div>
             </div>
             <div className="flex justify-center items-center gap-2 mt-4">
-              <img src="/cursor.png" alt="Cursor Logo" className="w-6 h-6" />
+              <img src={`${basePath}/cursor.png`} alt="Cursor Logo" className="w-6 h-6" />
               <span className="text-xs text-foreground/50">This website was made with Cursor</span>
             </div>
           </div>
