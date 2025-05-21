@@ -1197,7 +1197,7 @@ export default function Home() {
         <footer className="relative z-10 border-t border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-              <div className="text-center md:text-left">
+              <div className="text-center md:text-left w-full">
                 <p className="text-sm text-foreground/60">
                   © {new Date().getFullYear()} Vishnu Anand. All rights reserved.
                 </p>
@@ -1224,6 +1224,10 @@ export default function Home() {
                   </Button>
                 </Link>
               </div>
+            </div>
+            <div className="flex justify-center items-center gap-2 mt-4">
+              <img src="/cursor.png" alt="Cursor Logo" className="w-6 h-6" />
+              <span className="text-xs text-foreground/50">This website was made with Cursor</span>
             </div>
           </div>
         </footer>
