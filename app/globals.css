@@ -25,8 +25,8 @@
   background-repeat: no-repeat;
   opacity: 1;
   transition: opacity 0.3s ease-in-out;
-  filter: blur(6px);
-  transform: scale(2); /* Prevent blur edges */
+  filter: blur(4px);
+  transform: scale(1.2); /* Prevent blur edges */
 }
 
 /* Light theme background */
