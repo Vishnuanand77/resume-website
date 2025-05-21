@@ -25,8 +25,8 @@
   background-repeat: no-repeat;
   opacity: 1;
   transition: opacity 0.3s ease-in-out;
-  filter: blur(6px);
-  transform: scale(2); /* Prevent blur edges */
+  filter: blur(4px);
+  transform: scale(1.2); /* Prevent blur edges */
 }
 
 /* Light theme background */
@@ -259,10 +259,10 @@ main {
 
 /* Add smooth transitions for theme switching */
 * {
-  transition: background-color 0.8s ease-in-out,
-              border-color 0.8s ease-in-out,
-              color 0.8s ease-in-out,
-              opacity 0.8s ease-in-out;
+  transition: background-color 0.2s ease-in-out,
+              border-color 0.2s ease-in-out,
+              color 0.2s ease-in-out,
+              opacity 0.2s ease-in-out;
 }
 
 /* Ensure transitions don't affect performance */

@@ -3,8 +3,8 @@ import { ThemeProvider } from "@/components/theme-provider"
 import "./globals.css"
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'Vishnu Anand | Business Analyst & AI Software Engineer',
+  description: 'Portfolio website of Vishnu Anand - Business Analyst and AI Software Engineer specializing in data analytics, machine learning, and full-stack development.',
   generator: 'v0.dev',
 }
 

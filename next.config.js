@@ -5,10 +5,11 @@
 const isProduction = process.env.NODE_ENV === 'production';
 
 const nextConfig = {
-    output: 'export',
+    // Only use export output in production
+    ...(isProduction ? { output: 'export' } : {}),
     basePath: isProduction ? '/resume-website' : '',
     // Use 'out' directory to match GitHub Actions workflow
-    distDir: 'out',
+    distDir: isProduction ? 'out' : '.next',
     images: {
         unoptimized: true,
     },
@@ -25,5 +26,5 @@ const nextConfig = {
         return config;
     },
 }
-   
+
 module.exports = nextConfig

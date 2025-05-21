@@ -40,3 +40,6 @@ next-env.d.ts
 
 # Ignore specstory
 .specstory
+
+# Ignore Specstory history directory
+.specstory/
