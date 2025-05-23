@@ -125,13 +125,6 @@ export default function Home() {
                   Education
                 </Link>
                 <Link
-                  href="#skills"
-                  className="text-foreground/60 hover:text-foreground transition-colors"
-                  onClick={(e) => scrollToSection(e, "skills")}
-                >
-                  Skills
-                </Link>
-                <Link
                   href="#projects"
                   className="text-foreground/60 hover:text-foreground transition-colors"
                   onClick={(e) => scrollToSection(e, "projects")}
@@ -198,13 +191,6 @@ export default function Home() {
                 onClick={(e) => handleMobileNavClick(e, "education")}
               >
                 Education
-              </Link>
-              <Link
-                href="#skills"
-                className="w-full py-3 text-center transition-colors hover:text-foreground/80"
-                onClick={(e) => handleMobileNavClick(e, "skills")}
-              >
-                Skills
               </Link>
               <Link
                 href="#projects"
@@ -996,7 +982,7 @@ export default function Home() {
                     className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white px-2 py-0.5 flex items-center gap-1 mt-auto"
                       asChild
                     >
-                    <a href="https://www.credly.com/badges/533b4c65-dd42-4f0d-b078-8555ee40b5d5?source=linked_in_profile" target="_blank" rel="noopener noreferrer">
+                    <a href="https://github.com/Vishnuanand77/certificates/blob/main/GoogleProfessionalCertificate_ConsolidatedCertificate.pdf" target="_blank" rel="noopener noreferrer">
                       <ExternalLink className="w-3 h-3" />
                       View Credential
                     </a>
