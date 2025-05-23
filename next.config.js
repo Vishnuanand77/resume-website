@@ -8,8 +8,8 @@ const nextConfig = {
     // Only use export output in production
     ...(isProduction ? { output: 'export' } : {}),
     basePath: isProduction ? '/resume-website' : '',
-    // Use 'out' directory to match GitHub Actions workflow
-    distDir: isProduction ? 'out' : '.next',
+    // Use 'dist' directory to match GitHub Actions workflow
+    distDir: isProduction ? 'dist' : '.next',
     images: {
         unoptimized: true,
     },
