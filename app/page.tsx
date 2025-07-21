@@ -146,7 +146,7 @@ export default function Home() {
                   className="hidden md:flex ml-4 bg-black text-white dark:bg-white dark:text-black hover:bg-white hover:text-black hover:border-black dark:hover:bg-zinc-900 dark:hover:text-white border border-transparent"
                   asChild
                 >
-                  <a href="/Resume-AI%20Engineering.pdf" download>
+                  <a href="/Resume-Data%20Scientist.pdf" download>
                   <Download className="mr-2 h-4 w-4 transition-none" />
                   Download CV
                   </a>
@@ -308,12 +308,12 @@ export default function Home() {
                   id: 'care',
                   date: 'May 2025 - Present',
                   logo: `${basePath}/care-logo.png`,
-                  title: 'Full Stack AI Software Engineer',
+                  title: 'AI Engineer Intern',
                   company: 'Care.com',
                   bullets: [
-                    'Collaborated with system architects to implement business logic using Java Spring Boot architecture, integrating PostgreSQL, Kafka, and Go-based adapters.',
-                    'Developed RESTful APIs with versioned CRUD operations and MCP-based tooling, enabling robust service orchestration and real-time data flows.',
-                    'Led migration of legacy system data into modular architecture, ensuring referential integrity and business continuity.'
+                    'Built LLM-powered documentation and dev agents using Cursor and LangChain, increasing engineering throughput by 30%.',
+                    'Automated report generation and data ingestion pipelines using n8n, reducing turnaround time by 60% for marketing team.',
+                    'Designed prompt-chaining workflows to improve onboarding and automate unit test generation, enhancing engineering efficiency.'
                   ]
                 }, {
                   id: 'prediction-guard',
@@ -325,6 +325,17 @@ export default function Home() {
                     'Built LLM-powered agents to automate lead qualification, demo scheduling, and follow-ups in B2B pipelines, resulting in 2–3× increase in engagement and 65% reduction in sales cycle time.',
                     'Benchmarked agent performance against human-led processes, collaborating with R&D to enhance accuracy, response quality, and cost-efficiency.',
                     'Designed scalable evaluation frameworks combining test generation, CI integration, and human-in-the-loop feedback to validate and deploy AI agents.'
+                  ]
+                }, {
+                  id: 'purdue-grad-ta',
+                  date: 'Jun 2025 - Aug 2025',
+                  logo: `${basePath}/purdue-logo.png`,
+                  title: 'Graduate Teaching Assistant',
+                  company: 'Purdue University',
+                  bullets: [
+                    'Assisted in delivering graduate-level course "Data Science in the Cloud," emphasizing alignment of descriptive, predictive, and prescriptive analytics for decision-making.',
+                    'Supported students in building end-to-end ML pipelines on AWS using SageMaker, Forecast, and cloud-native services for real-world business challenges.',
+                    'Mentored project teams through INFORMS CAP framework, focusing on cloud architecture, technical communication, and professional portfolio development.'
                   ]
                 }, {
                   id: 'purdue',
@@ -1075,9 +1086,12 @@ export default function Home() {
                     variant="outline"
                     size="sm"
                     className="bg-black text-white dark:bg-white dark:text-black border border-border hover:bg-white hover:text-black dark:hover:bg-black dark:hover:text-white px-2 py-0.5 flex items-center gap-1 mt-auto"
-                    disabled
+                    asChild
                   >
-                    Exam Scheduled
+                    <a href="https://www.credly.com/badges/cb97e169-9b4c-41bc-b404-b12640d589e7/linked_in_profile" target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="w-3 h-3" />
+                      View Credential
+                    </a>
                   </Button>
                 </CardContent>
               </Card>
